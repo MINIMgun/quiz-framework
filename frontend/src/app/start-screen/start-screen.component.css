@@ -1,0 +1,28 @@
+.center {
+    margin: 0;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    column-gap: 4em;
+}
+
+
+button {  
+    background-color: #F05700;
+    border: 0;
+    padding: 5vh 10vh;
+    border-radius: 0.5em;
+    flex-grow: 1;
+    font-size: 2rem;
+    color: white;
+}
+
+button:hover,
+button:focus {
+    background-color: #ff8000;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.2); 
+}
