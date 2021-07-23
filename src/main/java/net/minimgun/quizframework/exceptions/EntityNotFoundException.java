@@ -34,4 +34,15 @@ public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(Class<?> entity, Long id) {
         this(entity, "id", id);
     }
+
+    /**
+     * 
+     * Creates a new {@link EntityNotFoundException}.
+     * 
+     * @param entity The class of the entity that couldn't be found.
+     * @param id     The id.
+     */
+    public EntityNotFoundException(Class<?> entity, String id) {
+        this(entity, "id", id);
+    }
 }
