@@ -2,7 +2,7 @@
 name: Task
 about: An enhancement or requirement for another feature
 title: "[TASK] - title"
-labels: help wanted
+labels: help wanted, Task
 assignees: ''
 
 ---
