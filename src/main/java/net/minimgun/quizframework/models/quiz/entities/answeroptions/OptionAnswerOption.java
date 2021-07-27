@@ -3,15 +3,14 @@ package net.minimgun.quizframework.models.quiz.entities.answeroptions;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Lob;
 
-import net.minimgun.quizframework.enums.AnswerOptionType;
-import net.minimgun.quizframework.models.quiz.interfaces.AnswerOption;
-
 @Entity
-public class OptionAnswerOption extends AnswerOption {
+public class OptionAnswerOption {
 
-    private AnswerOptionType answerOptionType = AnswerOptionType.OPTION;
+    private @Id @GeneratedValue long id;
     @Lob
     private List<String> options;
     private String correctValue;
@@ -24,10 +23,6 @@ public class OptionAnswerOption extends AnswerOption {
 
     public OptionAnswerOption() {
         super();
-    }
-
-    public AnswerOptionType getAnswerOptionType() {
-        return answerOptionType;
     }
 
     public boolean isCorrectValue(Object value) {
@@ -50,7 +45,12 @@ public class OptionAnswerOption extends AnswerOption {
         this.correctValue = correctValue;
     }
 
-    public void setAnswerOptionType(AnswerOptionType answerOptionType) {
-        this.answerOptionType = answerOptionType;
+    public long getId() {
+        return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }

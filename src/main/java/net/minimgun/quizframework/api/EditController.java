@@ -14,12 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import net.minimgun.quizframework.models.edit.EditPassword;
 import net.minimgun.quizframework.models.edit.QuizCreateInfo;
 import net.minimgun.quizframework.models.quiz.QuizEntity;
@@ -35,14 +35,14 @@ public class EditController {
 
     @Operation(summary = "Create a new QuizEntity", description = "This method creates a new QuizEntity with the specified QuizCreateInfo. It also sets a Cookie with the editToken.")
     @PostMapping("/createNewQuiz")
-    ResponseEntity<QuizEntity> createNewQuiz(@RequestBody @NotBlank @NotNull QuizCreateInfo createInfo,
+    ResponseEntity<QuizEntity> createNewQuiz(@RequestBody @NotNull QuizCreateInfo createInfo,
             HttpServletResponse response) {
         return new ResponseEntity<QuizEntity>(service.createQuiz(createInfo, response), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Retrieve a QuizEntity to edit", description = "This method is used to provide a QuizEntity for users that want to edit it. For that they need to authorize with the editPassword of that Quiz. The authorization is checked and a cookie is returned with a editToken for this QuizEntity.")
     @PostMapping("/getQuiz/id={id}")
-    ResponseEntity<QuizEntity> editQuiz(@RequestBody @NotNull @NotBlank EditPassword password,
+    ResponseEntity<QuizEntity> editQuiz(@RequestBody(required = false) EditPassword password,
             HttpServletResponse response, @PathVariable @NotNull @NotBlank String id, HttpServletRequest request) {
         return new ResponseEntity<QuizEntity>(service.editQuizEntity(password, response, id, request),
                 HttpStatus.ACCEPTED);

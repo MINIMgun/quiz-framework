@@ -32,7 +32,7 @@ public class EditTokenMap extends HashMap<String, List<String>> {
 
     public boolean tokenIsValid(String id, String token) {
         List<String> tokens = get(id);
-        if (token != null) {
+        if (tokens != null) {
             return tokens.contains(token);
         }
         return false;

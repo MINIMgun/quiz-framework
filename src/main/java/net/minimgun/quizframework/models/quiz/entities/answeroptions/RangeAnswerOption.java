@@ -1,14 +1,13 @@
 package net.minimgun.quizframework.models.quiz.entities.answeroptions;
 
 import javax.persistence.Entity;
-
-import net.minimgun.quizframework.enums.AnswerOptionType;
-import net.minimgun.quizframework.models.quiz.interfaces.AnswerOption;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
-public class RangeAnswerOption extends AnswerOption {
-
-    private AnswerOptionType answerOptionType = AnswerOptionType.RANGE;
+public class RangeAnswerOption{
+    
+    private @Id @GeneratedValue long id;
     private double correctValue;
 
     public RangeAnswerOption(double correctValue) {
@@ -20,15 +19,6 @@ public class RangeAnswerOption extends AnswerOption {
         super();
     }
 
-    @Override
-    public AnswerOptionType getAnswerOptionType() {
-        return answerOptionType;
-    }
-
-    @Override
-    public boolean isCorrectValue(Object value) {
-        return true;
-    }
 
     public double getCorrectValue() {
         return correctValue;
@@ -38,7 +28,12 @@ public class RangeAnswerOption extends AnswerOption {
         this.correctValue = correctValue;
     }
 
-    public void setAnswerOptionType(AnswerOptionType answerOptionType) {
-        this.answerOptionType = answerOptionType;
+    public long getId() {
+        return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }

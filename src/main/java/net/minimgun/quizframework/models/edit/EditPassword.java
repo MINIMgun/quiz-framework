@@ -9,6 +9,10 @@ public class EditPassword {
         this.editPassword = editPassword;
     }
 
+    public EditPassword() {
+        super();
+    }
+
     public String getEditPassword() {
         return editPassword;
     }

@@ -66,4 +66,10 @@ public class QuizCreateInfo {
     public void setQuizSettings(QuizSettingsImpl quizSettings) {
         this.quizSettings = quizSettings;
     }
+
+    @Override
+    public String toString() {
+        return "QuizCreateInfo [author=" + author + ", quizName=" + quizName + ", editPassword=" + editPassword
+                + ", quizSettings=" + quizSettings + "]";
+    }
 }

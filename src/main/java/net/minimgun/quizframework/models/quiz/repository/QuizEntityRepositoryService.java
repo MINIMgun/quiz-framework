@@ -81,7 +81,7 @@ public class QuizEntityRepositoryService {
         if (hasValidEditToken(request, id)) {
             return quizEntity;
         }
-        if (passwordEncoder.matches(password.getEditPassword(), quizEntity.getEditPassword())) {
+        if (password!= null && passwordEncoder.matches(password.getEditPassword(), quizEntity.getEditPassword())) {
             return getQuizEntityWithToken(response, id, quizEntity);
         }
         throw new HttpClientErrorException(HttpStatus.FORBIDDEN);
@@ -129,6 +129,9 @@ public class QuizEntityRepositoryService {
         String editToken = TokenGenerator.generateToken(id);
         Cookie cookie = new Cookie("edit_token_" + id, editToken);
         cookie.setPath("/");
+        cookie.setHttpOnly(false);
+        cookie.setMaxAge(-1);
+        cookie.setSecure(true);
         response.addCookie(cookie);
         tokenMap.addEditToken(id, editToken);
         return quizEntity;
@@ -139,7 +142,7 @@ public class QuizEntityRepositoryService {
         if (cookies != null) {
             String editToken = null;
             for (Cookie cookie : cookies) {
-                if (cookie.getName() == "edit_token_" + id) {
+                if (cookie.getName().equals("edit_token_" + id)) {
                     editToken = cookie.getValue();
                     break;
                 }

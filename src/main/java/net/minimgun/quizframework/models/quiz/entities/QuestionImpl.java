@@ -1,21 +1,22 @@
 package net.minimgun.quizframework.models.quiz.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import net.minimgun.quizframework.models.quiz.entities.answeroptions.AnswerOption;
 import net.minimgun.quizframework.models.quiz.entities.tasks.TaskImpl;
-import net.minimgun.quizframework.models.quiz.interfaces.AnswerOption;
 import net.minimgun.quizframework.models.quiz.interfaces.Question;
 
 @Entity
 public class QuestionImpl implements Question {
 
     private @Id @GeneratedValue long id;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private TaskImpl task;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private AnswerOption answerOption;
     private int questionIndex;
     private int time;
