@@ -15,8 +15,7 @@ export class EditAuthorizationComponent implements OnInit {
   constructor(
     private api: EditControllerService,
     private router: Router,
-    private route: ActivatedRoute,
-    private cookie: CookieService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -30,8 +29,15 @@ export class EditAuthorizationComponent implements OnInit {
         body: this.editPassword,
       })
       .subscribe(
-        (res) => {
-          console.log(res.headers.keys());
+        () => {
+          let tokenIds = JSON.parse(
+            sessionStorage.getItem('edit_tokens')
+          ) as String[];
+          if (!tokenIds) {
+            tokenIds = new Array();
+          }
+          tokenIds.push(this.id);
+          sessionStorage.setItem('edit_tokens', JSON.stringify(tokenIds));
           this.router.navigate(['edit', this.id]);
         },
         () => {

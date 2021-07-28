@@ -8,6 +8,8 @@ import { JoinComponent } from './join/join.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditModule } from './edit/edit.module';
 import { HttpClientModule } from '@angular/common/http';
+import config from '../assets/config/config.json';
+import { ApiModule } from './api/api.module';
 
 @NgModule({
   declarations: [AppComponent, StartScreenComponent, JoinComponent],
@@ -17,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     EditModule,
     HttpClientModule,
+    ApiModule.forRoot({ rootUrl: config.apiUrl + config.apiBasePath }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { QuizEntityInformation } from 'src/app/api/models';
 import { EditControllerService } from 'src/app/api/services';
@@ -13,11 +12,7 @@ import { EditControllerService } from 'src/app/api/services';
 export class QuizOverviewComponent implements OnInit {
   quizInformation?: Array<QuizEntityInformation>;
   authorControll: FormControl = new FormControl(null);
-  constructor(
-    private api: EditControllerService,
-    private cookie: CookieService,
-    private router: Router
-  ) {}
+  constructor(private api: EditControllerService, private router: Router) {}
 
   ngOnInit(): void {
     this.authorControll.valueChanges
@@ -55,7 +50,10 @@ export class QuizOverviewComponent implements OnInit {
   }
 
   editQuiz(quiz: QuizEntityInformation): void {
-    if (this.cookie.check(`edit_token_${quiz.quizEntityId}`)) {
+    const tokenIds = JSON.parse(
+      sessionStorage.getItem('edit_tokens')
+    ) as String[];
+    if (tokenIds && tokenIds.indexOf(quiz.quizEntityId) > -1) {
       this.router.navigate(['edit', quiz.quizEntityId]);
     } else {
       this.router.navigate(['edit', quiz.quizEntityId, 'authorize']);

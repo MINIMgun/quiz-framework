@@ -9,7 +9,12 @@ import { EditQuizComponent } from './edit-quiz/edit-quiz.component';
 import { EditAuthorizationComponent } from './edit-quiz/edit-authorization/edit-authorization.component';
 
 @NgModule({
-  declarations: [QuizOverviewComponent, CreateQuizComponent, EditQuizComponent, EditAuthorizationComponent],
+  declarations: [
+    QuizOverviewComponent,
+    CreateQuizComponent,
+    EditQuizComponent,
+    EditAuthorizationComponent,
+  ],
   imports: [CommonModule, ReactiveFormsModule, AppRoutingModule, FormsModule],
   providers: [CookieService],
 })
