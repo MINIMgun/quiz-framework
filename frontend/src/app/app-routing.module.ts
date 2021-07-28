@@ -1,17 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateQuizComponent } from './edit/create-quiz/create-quiz.component';
+import { EditAuthorizationComponent } from './edit/edit-quiz/edit-authorization/edit-authorization.component';
+import { EditQuizComponent } from './edit/edit-quiz/edit-quiz.component';
+import { QuizOverviewComponent } from './edit/quiz-overview/quiz-overview.component';
 import { JoinComponent } from './join/join.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
-  { path: 'start', component: StartScreenComponent},
-  { path: 'join', component: JoinComponent},
-  { path: 'join/:sessionID', component: JoinComponent}
+  { path: 'start', component: StartScreenComponent },
+  { path: 'join', component: JoinComponent },
+  { path: 'join/:sessionID', component: JoinComponent },
+  { path: 'edit', component: QuizOverviewComponent },
+  { path: 'create', component: CreateQuizComponent },
+  { path: 'edit/:id', component: EditQuizComponent },
+  { path: 'edit/:id/authorize', component: EditAuthorizationComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

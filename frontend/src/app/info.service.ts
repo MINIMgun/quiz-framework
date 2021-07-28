@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Info } from './info';
-import { INFO } from './mock-info';
+import { Info } from './api/models';
+import { SettingsControllerService } from './api/services';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InfoService {
-
-  constructor() { }
+  constructor(private api: SettingsControllerService) {}
 
   getInfo(): Observable<Info> {
-    return of(INFO);
+    return this.api.getCurrentInfo();
   }
 }
