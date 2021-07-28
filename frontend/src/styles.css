@@ -18,6 +18,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.bg-minim {
+  background-color: #ff8000;
+}
+
 /* Rules for sizing the icon. */
 .material-icons.md-18 {
   font-size: 18px;

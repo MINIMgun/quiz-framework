@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuizEntity } from 'src/app/api/models';
 import { EditControllerService } from 'src/app/api/services';
 
@@ -11,16 +11,23 @@ export class EditQuizComponent implements OnInit {
   quiz?: QuizEntity;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private api: EditControllerService
   ) {}
 
   ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
     this.api
       .editQuiz({
-        id: this.route.snapshot.paramMap.get('id'),
+        id: id,
       })
-      .subscribe((res) => {
-        this.quiz = res;
-      });
+      .subscribe(
+        (res) => {
+          this.quiz = res;
+        },
+        () => {
+          this.router.navigate(['edit', id, 'authorize']);
+        }
+      );
   }
 }

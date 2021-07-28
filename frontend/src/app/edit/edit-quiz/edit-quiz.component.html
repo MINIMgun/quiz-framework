@@ -1,1 +1,71 @@
-<p>edit-quiz works!</p>
+<div
+  class="continer-fluid position-relative mh-100 overflow-auto"
+  style="height: 80vh"
+  *ngIf="quiz"
+>
+  <div class="container-fluid bg-minim py-3 px-4 rounded-top">
+    <div class="row">
+      <div class="col-md-3">
+        <input
+          class="form-control form-control-lg title-input h-100"
+          type="text"
+          [(ngModel)]="quiz.quizName"
+        />
+      </div>
+      <div class="col-md-2">
+        <label for="defaultTime" class="form-label m-0"
+          >Default Round Time</label
+        >
+        <input
+          [(ngModel)]="quiz.quizSettings.defaultTime"
+          type="number"
+          class="form-control align-self-end form-control-sm"
+          id="defaultTime"
+          name="defaultTime"
+        />
+      </div>
+      <div class="col-md-2">
+        <label for="pointsToAdd" class="form-label m-0"
+          >Right Answer Points</label
+        >
+        <input
+          [(ngModel)]="quiz.quizSettings.pointsToAdd"
+          type="number"
+          class="form-control align-self-end form-control-sm"
+          id="pointsToAdd"
+          name="pointsToAdd"
+        />
+      </div>
+      <div class="col-md-2">
+        <label for="removePointsForInvalidAnswers" class="form-label m-0"
+          >Remove Points When Wrong?</label
+        >
+        <select
+          [(ngModel)]="quiz.quizSettings.removePointsForInvalidAnswers"
+          class="form-select form-select-sm"
+          id="removePointsForInvalidAnswers"
+          name="removePointsForInvalidAnswers"
+        >
+          <option [ngValue]="false">No</option>
+          <option [ngValue]="true">Yes</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="pointsToRemove" class="form-label m-0"
+          >Remove Points Amount</label
+        >
+        <input
+          [(ngModel)]="quiz.quizSettings.pointsToRemove"
+          type="number"
+          class="form-control align-self-end form-control-sm"
+          id="pointsToRemove"
+          name="pointsToRemove"
+          [disabled]="!quiz.quizSettings.removePointsForInvalidAnswers"
+        />
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-dark form-control h-100">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
