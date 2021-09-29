@@ -2,16 +2,16 @@ package net.minimgun.quizframework.models.quiz.entities.answeroptions;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 @Entity
 public class OptionAnswerOption {
 
     private @Id @GeneratedValue long id;
-    @Lob
+    @ElementCollection
     private List<String> options;
     private String correctValue;
 
