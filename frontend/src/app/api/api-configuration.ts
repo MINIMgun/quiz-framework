@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://192.168.2.40:14001/quiz/api/v1';
+  rootUrl: string;
 }
 
 /**

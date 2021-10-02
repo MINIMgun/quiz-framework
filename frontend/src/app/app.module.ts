@@ -10,6 +10,7 @@ import { EditModule } from './edit/edit.module';
 import { HttpClientModule } from '@angular/common/http';
 import config from '../assets/config/config.json';
 import { ApiModule } from './api/api.module';
+import { PlayModule } from './play/play.module';
 
 @NgModule({
   declarations: [AppComponent, StartScreenComponent, JoinComponent],
@@ -20,6 +21,7 @@ import { ApiModule } from './api/api.module';
     EditModule,
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: config.apiUrl + config.apiBasePath }),
+    PlayModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
