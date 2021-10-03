@@ -42,21 +42,20 @@ public class LobbyService {
         String nickname = joinSessionInfo.getNickname();
         if (!nicknameAlreadyInUse(nickname, session)) {
             List<Client> clients = session.getClients();
-            /*
-             * This abomination might need some explanation. First, I convert the List of
-             * Clients to a List of Strings and check if the nickname is already in use
-             * there. If that is the case I get the first Client where the Nickname is the
-             * same ( there should ever only be one but ¯\_(ツ)_/¯ ). If the nickname is not
-             * used yet I create a new Client and if there is no Client already registered,
-             * I make him the game master.
-             */
-            Client client = clients.stream().map(Client::getNickname).collect(Collectors.toList()).contains(nickname)
-                    ? clients.stream().filter(e -> e.getNickname().equals(nickname)).collect(Collectors.toList()).get(0)
-                    : new Client(nickname, 0, true, session.getClients().isEmpty(), principal.getName());
-            client.setSocketUsername(principal.getName());
-            session.addClient(client);
+            if(clientWithNicknameExists(clients, nickname)) {
+                Client client = clients.stream().filter(e -> e.getNickname().equals(nickname)).collect(Collectors.toList()).get(0);
+                client.setSocketUsername(principal.getName());
+                client.setConnected(true);
+            } else {
+                Client client = new Client(nickname, 0, session.getClients().isEmpty(), true, principal.getName());
+                session.addClient(client);
+            }
         }
         return session.getClients();
+    }
+
+    private boolean clientWithNicknameExists(List<Client> clients, String nickname) {
+        return clients.stream().map(Client::getNickname).collect(Collectors.toList()).contains(nickname);
     }
 
     private boolean nicknameAlreadyInUse(String nickname, Session session) {

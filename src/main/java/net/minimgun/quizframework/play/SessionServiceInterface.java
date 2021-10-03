@@ -88,7 +88,9 @@ public interface SessionServiceInterface {
                     for (Client client : session.getClients()) {
                         boolean clientIsOnline = clientIsOnline(client);
                         if (client.isConnected() && !clientIsOnline) {
+                            client.setConnected(clientIsOnline);
                             onClientDisconnect(client, session);
+                            continue;
                         }
                         client.setConnected(clientIsOnline);
                     }
