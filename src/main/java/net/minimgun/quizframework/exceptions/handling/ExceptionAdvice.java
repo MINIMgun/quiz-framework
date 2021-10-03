@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 import net.minimgun.quizframework.exceptions.EntityNotFoundException;
+import net.minimgun.quizframework.exceptions.NicknameAlreadyInUseException;
 
 @ControllerAdvice
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,6 +34,14 @@ public class ExceptionAdvice {
     ResponseEntity<ExceptionEntity> httpClientErrorExceptionHandler(HttpClientErrorException e) {
         logException(HttpClientErrorException.class, e);
         return new ResponseEntity<ExceptionEntity>(new ExceptionEntity(e), e.getStatusCode());
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(NicknameAlreadyInUseException.class)
+    ExceptionEntity nicknameAlreadyInUseHandler(NicknameAlreadyInUseException e) {
+        logException(NicknameAlreadyInUseException.class, e);
+        return new ExceptionEntity(e);
     }
 
     private void logException(Class<?> exceptionType, Exception exception) {
