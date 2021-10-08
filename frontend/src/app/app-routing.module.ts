@@ -5,6 +5,7 @@ import { EditAuthorizationComponent } from './edit/edit-quiz/edit-authorization/
 import { EditQuizComponent } from './edit/edit-quiz/edit-quiz.component';
 import { QuizOverviewComponent } from './edit/quiz-overview/quiz-overview.component';
 import { JoinComponent } from './join/join.component';
+import { GameManagementComponent } from './play/game-management/game-management.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'create', component: CreateQuizComponent },
   { path: 'edit/:id', component: EditQuizComponent },
   { path: 'edit/:id/authorize', component: EditAuthorizationComponent },
+  { path: 'play', component: GameManagementComponent },
+  //{ path: '**', redirectTo: '/start', pathMatch: 'full' }
 ];
 
 @NgModule({

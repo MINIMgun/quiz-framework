@@ -11,7 +11,7 @@ import { SocketClientState } from './socket-client-state';
 })
 export class SocketClientService implements OnDestroy {
   private client: Client;
-  private state: BehaviorSubject<SocketClientState>;
+  state: BehaviorSubject<SocketClientState>;
 
   constructor() {
     this.client = new Client({
@@ -24,10 +24,10 @@ export class SocketClientService implements OnDestroy {
     this.state = new BehaviorSubject<SocketClientState>(
       SocketClientState.ATTEMPTING
     );
-    this.client.onConnect = function () {
+    this.client.onConnect = () => {
       this.state.next(SocketClientState.CONNECTED);
     };
-    this.client.onDisconnect = function () {
+    this.client.onDisconnect = () => {
       this.state.next(SocketClientState.ATTEMPTING);
     };
   }

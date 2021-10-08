@@ -1,0 +1,64 @@
+<div
+  class="
+    container-fluid
+    row
+    g-5
+    p-3
+    m-0
+    position-relative
+    align-content-between
+  "
+  style="height: 80vh"
+>
+  <div class="col-md-3">
+    <ul class="list-group overflow-auto" style="max-height: 60vh">
+      <li
+        class="list-group-item d-flex align-items-center list-group-item-dark"
+        *ngFor="let client of game.onlineClients"
+      >
+        <img [src]="getIconURL(client)" alt="icon" style="width: 40px" />
+        <h4 class="m-0 p-1">{{ client.nickname }}</h4>
+        <span
+          *ngIf="client.gameMaster"
+          class="material-icons ms-auto"
+          aria-label="This client is game master"
+          data-bs-toggle="tooltip"
+          title="This client is game master"
+          >star</span
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <label for="inviteLink" class="form-label">Invite Link</label>
+    <div class="input-group">
+      <input
+        name="inviteLink"
+        id="inviteLink"
+        type="text"
+        class="form-control"
+        disabled
+        readonly
+        [value]="urlBasePath + game.sessionId"
+      />
+      <button
+        class="btn btn-secondary"
+        type="button"
+        (click)="copyMessage(urlBasePath + game.sessionId)"
+      >
+        <span class="material-icons" style="vertical-align: bottom"
+          >content_copy</span
+        >
+        Copy
+      </button>
+    </div>
+  </div>
+  <div class="col-md-12 text-end m-0">
+    <button
+      class="btn btn-primary p-4 mb-3"
+      [disabled]="game.client && !game.client.gameMaster"
+    >
+      Start
+    </button>
+  </div>
+</div>

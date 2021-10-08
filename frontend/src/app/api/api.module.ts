@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { LobbyControllerService } from './services/lobby-controller.service';
 import { EditControllerService } from './services/edit-controller.service';
 import { SettingsControllerService } from './services/settings-controller.service';
 
@@ -15,6 +16,7 @@ import { SettingsControllerService } from './services/settings-controller.servic
   exports: [],
   declarations: [],
   providers: [
+    LobbyControllerService,
     EditControllerService,
     SettingsControllerService,
     ApiConfiguration

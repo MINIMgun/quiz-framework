@@ -1,4 +1,5 @@
 export { ExceptionEntity } from './models/exception-entity';
+export { JoinSessionInfo } from './models/join-session-info';
 export { AnswerOption } from './models/answer-option';
 export { OptionAnswerOption } from './models/option-answer-option';
 export { QuestionImpl } from './models/question-impl';
