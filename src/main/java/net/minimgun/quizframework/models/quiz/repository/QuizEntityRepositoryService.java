@@ -76,15 +76,25 @@ public class QuizEntityRepositoryService {
      */
     public QuizEntity editQuizEntity(EditPassword password, HttpServletResponse response, String id,
             HttpServletRequest request) {
-        QuizEntity quizEntity = repository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(QuizEntity.class, id));
+        QuizEntity quizEntity = getQuiz(id);
         if (hasValidEditToken(request, id)) {
             return quizEntity;
         }
-        if (password!= null && passwordEncoder.matches(password.getEditPassword(), quizEntity.getEditPassword())) {
+        if (password != null && passwordEncoder.matches(password.getEditPassword(), quizEntity.getEditPassword())) {
             return getQuizEntityWithToken(response, id, quizEntity);
         }
         throw new HttpClientErrorException(HttpStatus.FORBIDDEN);
+    }
+
+    /**
+     * This method returns the {@link QuizEntity} with the specified id.
+     * 
+     * @param id The id of the {@link QuizEntity}.
+     * @return the {@link QuizEntity} with the specified id.
+     * @since 0.1.2
+     */
+    public QuizEntity getQuiz(String id) {
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(QuizEntity.class, id));
     }
 
     /**
@@ -98,7 +108,7 @@ public class QuizEntityRepositoryService {
      * @since 0.0.1
      */
     public QuizEntity updateQuizEntity(QuizEntity quizEntity, String id, HttpServletRequest request) {
-        QuizEntity old = repository.findById(id).orElseThrow(() -> new EntityNotFoundException(QuizEntity.class, id));
+        QuizEntity old = getQuiz(id);
         quizEntity.setId(id);
         quizEntity.setEditPassword(old.getEditPassword());
         if (hasValidEditToken(request, id)) {
