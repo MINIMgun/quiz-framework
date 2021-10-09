@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import net.minimgun.quizframework.exceptions.NoSessionException;
 import net.minimgun.quizframework.models.play.Client;
 import net.minimgun.quizframework.models.play.Session;
+import net.minimgun.quizframework.models.play.SessionState;
 import net.minimgun.quizframework.models.play.events.ClientDisconnectEvent;
 import net.minimgun.quizframework.models.quiz.QuizEntity;
 import net.minimgun.quizframework.util.TokenGenerator;
@@ -28,7 +29,7 @@ public class SessionService implements SessionServiceInterface {
 
     @Override
     public Session createNewSession(QuizEntity quiz) {
-        Session session = new Session(getValidSessionId(), quiz);
+        Session session = new Session(getValidSessionId(), quiz, new SessionState());
         sessionMap.put(session.getSessionId(), session);
         registerSession(session);
         return session;

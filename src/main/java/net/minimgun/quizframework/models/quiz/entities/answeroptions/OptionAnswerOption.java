@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 public class OptionAnswerOption {
 
     private @Id @GeneratedValue long id;
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
     private List<String> options;
     private String correctValue;
 
@@ -51,6 +52,11 @@ public class OptionAnswerOption {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "OptionAnswerOption [id=" + id + ", options=" + options + ", correctValue=" + correctValue + "]";
     }
 
 }

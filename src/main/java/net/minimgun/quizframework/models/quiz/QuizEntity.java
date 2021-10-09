@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -18,9 +19,9 @@ import net.minimgun.quizframework.models.quiz.interfaces.Quiz;
 public class QuizEntity implements Quiz {
 
     private @Id String id;
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     private List<QuestionImpl> questions;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = { CascadeType.ALL })
     private QuizSettingsImpl quizSettings;
     private String quizName;
     private String author;

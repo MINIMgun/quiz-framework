@@ -14,9 +14,9 @@ import net.minimgun.quizframework.models.quiz.interfaces.Question;
 public class QuestionImpl implements Question {
 
     private @Id @GeneratedValue long id;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = { CascadeType.ALL })
     private TaskImpl task;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = { CascadeType.ALL })
     private AnswerOption answerOption;
     private int questionIndex;
     private int time;
@@ -75,6 +75,12 @@ public class QuestionImpl implements Question {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionImpl [id=" + id + ", task=" + task + ", answerOption=" + answerOption + ", questionIndex="
+                + questionIndex + ", time=" + time + "]";
     }
 
 }

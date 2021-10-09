@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,6 +54,7 @@ public class LobbyController {
     }
 
     @EventListener
+    @Async
     public void handleClientDisconnect(ClientDisconnectEvent clientDisconnectEvent) {
         simpMessagingTemplate.convertAndSend(
                 "/topic/session/" + clientDisconnectEvent.getSession().getSessionId() + "/join",

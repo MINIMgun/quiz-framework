@@ -53,4 +53,10 @@ public class AnswerOption {
     public void setId(long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "AnswerOption [id=" + id + ", answerOptionType=" + answerOptionType + ", optionAnswerOption="
+                + optionAnswerOption + ", rangeAnswerOption=" + rangeAnswerOption + "]";
+    }
 }

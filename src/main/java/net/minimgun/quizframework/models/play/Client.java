@@ -60,4 +60,50 @@ public class Client {
         this.socketUsername = socketUsername;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (isConnected ? 1231 : 1237);
+        result = prime * result + (isGameMaster ? 1231 : 1237);
+        result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
+        result = prime * result + points;
+        result = prime * result + ((socketUsername == null) ? 0 : socketUsername.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Client other = (Client) obj;
+        if (isConnected != other.isConnected)
+            return false;
+        if (isGameMaster != other.isGameMaster)
+            return false;
+        if (nickname == null) {
+            if (other.nickname != null)
+                return false;
+        } else if (!nickname.equals(other.nickname))
+            return false;
+        if (points != other.points)
+            return false;
+        if (socketUsername == null) {
+            if (other.socketUsername != null)
+                return false;
+        } else if (!socketUsername.equals(other.socketUsername))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Client [nickname=" + nickname + ", points=" + points + ", isGameMaster=" + isGameMaster
+                + ", isConnected=" + isConnected + ", socketUsername=" + socketUsername + "]";
+    }
+
 }

@@ -50,4 +50,9 @@ public class TaskImpl implements Task {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "TaskImpl [id=" + id + ", taskType=" + taskType + ", content=" + content + "]";
+    }
+
 }

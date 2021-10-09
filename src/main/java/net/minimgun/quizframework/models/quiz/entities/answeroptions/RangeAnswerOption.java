@@ -5,8 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class RangeAnswerOption{
-    
+public class RangeAnswerOption {
+
     private @Id @GeneratedValue long id;
     private double correctValue;
 
@@ -18,7 +18,6 @@ public class RangeAnswerOption{
     public RangeAnswerOption() {
         super();
     }
-
 
     public double getCorrectValue() {
         return correctValue;
@@ -34,6 +33,11 @@ public class RangeAnswerOption{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "RangeAnswerOption [id=" + id + ", correctValue=" + correctValue + "]";
     }
 
 }
