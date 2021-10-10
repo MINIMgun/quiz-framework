@@ -94,6 +94,7 @@ public class PlayService {
             client.setPoints(client.getPoints() + session.getQuiz().getQuizSettings().getPointsToAdd());
             currentState.setBuzzerClient(null);
             eventPublisher.publishEvent(new SessionStateChangeEvent(this, session));
+            eventPublisher.publishEvent(new ClientDisconnectEvent(this, null, session));
         }
     }
 
@@ -101,7 +102,6 @@ public class PlayService {
         Session session = sessionService.getSession(sessionId);
         if (principalIsGameMaster(session, principal)) {
             SessionState currentState = session.getCurrentState();
-            currentState.setCurrentQuestionState(QuestionState.RESULTS);
             Client client = session.getClientByNickname(currentState.getBuzzerClient().getNickname());
             if (session.getQuiz().getQuizSettings().isRemovePointsForInvalidAnswers()) {
                 client.setPoints(client.getPoints() - session.getQuiz().getQuizSettings().getPointsToRemove());
@@ -120,6 +120,7 @@ public class PlayService {
         } else {
             currentState.setGameState(GameState.RESULT);
         }
+        currentState.getClientResponses().clear();
         eventPublisher.publishEvent(new SessionStateChangeEvent(this, session));
     }
 
@@ -154,6 +155,7 @@ public class PlayService {
         }
         currentState.setCurrentQuestionState(QuestionState.RESULTS);
         eventPublisher.publishEvent(new SessionStateChangeEvent(this, session));
+        eventPublisher.publishEvent(new ClientDisconnectEvent(this, null, session));
     }
 
     private void startSession(Session session) {

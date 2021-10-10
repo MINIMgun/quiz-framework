@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>net.minimgun</groupId>
 	<artifactId>quizframework</artifactId>
-	<version>0.1.4</version>
+	<version>0.1.5</version>
 	<name>quizframework</name>
 	<description>This project uses Java with Spring Boot to povide the backend and Angular for the frontend.</description>
 	<properties>
