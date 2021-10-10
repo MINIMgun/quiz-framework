@@ -1,0 +1,81 @@
+<div class="continer-fluid position-relative mh-100" style="height: 80vh">
+  <h2 class="text-center p-3">Quiz Overview</h2>
+  <div
+    class="
+      table-responsive
+      position-absolute
+      bottom-0
+      w-100
+      overflow-auto
+      rounded-bottom
+    "
+  >
+    <div class="row gx-0 bg-dark">
+      <div class="col-md-1">
+        <input
+          class="form-control rounded-0"
+          type="text"
+          name="author"
+          id="author"
+          placeholder="Author"
+          [formControl]="authorControll"
+        />
+      </div>
+      <div class="col-md-2 offset-md-9">
+        <button
+          class="btn form-control btn-success rounded-0"
+          routerLink="/create"
+        >
+          <span class="material-icons" style="vertical-align: bottom">
+            add </span
+          >Create New Quiz
+        </button>
+      </div>
+    </div>
+    <table class="table table-dark m-0">
+      <thead>
+        <tr>
+          <th>Quiz Name</th>
+          <th>Author</th>
+          <th>Questions</th>
+          <th style="width: 1%">Action</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="quizInformation">
+        <tr *ngFor="let e of quizInformation">
+          <td>{{ e.quizName }}</td>
+          <td>
+            {{ e.author }}
+          </td>
+          <td>
+            {{ e.questionAmount }}
+          </td>
+          <td>
+            <div class="btn-group" role="group" style="white-space: nowrap">
+              <button
+                type="button"
+                class="btn btn-primary py-0 px-3"
+                (click)="play(e)"
+              >
+                <span class="material-icons" style="vertical-align: bottom">
+                  play_arrow
+                </span>
+                Play
+              </button>
+              <button
+                (click)="editQuiz(e)"
+                type="button"
+                class="btn btn-warning py-0 px-3"
+              >
+                <span class="material-icons" style="vertical-align: bottom">
+                  edit
+                </span>
+                Edit
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

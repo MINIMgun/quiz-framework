@@ -1,0 +1,32 @@
+<div class="h-100 d-flex align-items-center justify-content-center">
+  <div
+    class="w-50 h-50 text-center"
+    *ngIf="game.sessionState.buzzerClient && game.client.gameMaster"
+  >
+    <h3 class="m-0 p-3">
+      {{ game.sessionState.buzzerClient.nickname }} buzzed
+    </h3>
+    <div class="btn-group">
+      <button type="button" class="btn btn-success" (click)="right()">
+        Correct
+      </button>
+      <button type="button" class="btn btn-danger" (click)="wrong()">
+        Wrong
+      </button>
+    </div>
+  </div>
+  <button
+    class="btn btn-primary w-50 h-50"
+    *ngIf="
+      game.sessionState.currentQuestionState === 'ANSWERING' &&
+      !game.client.gameMaster
+    "
+    [disabled]="game.sessionState.buzzerClient"
+    (click)="buzzer()"
+  >
+    <ng-container *ngIf="!game.sessionState.buzzerClient">BUZZ</ng-container>
+    <ng-container *ngIf="game.sessionState.buzzerClient">
+      {{ game.sessionState.buzzerClient.nickname }} buzzed
+    </ng-container>
+  </button>
+</div>

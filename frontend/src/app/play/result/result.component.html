@@ -1,0 +1,33 @@
+<div class="container-fluid d-flex justify-content-center" style="height: 80vh">
+  <ul class="list-group m-4 overflow-auto w-50">
+    <li
+      class="list-group-item d-flex align-items-center list-group-item-dark"
+      *ngFor="let client of result; let i = index"
+      [class.gold]="i === 0"
+      [class.silver]="i === 1"
+      [class.bronze]="i === 2"
+    >
+      <h1
+        class="m-0"
+        [class.display-3]="i === 0"
+        [class.display-4]="i === 1"
+        [class.display-5]="i === 2"
+        [class.display-6]="i >= 3"
+        [class.pp-1]="i === 0"
+        [class.pp-2]="i === 1"
+        [class.pp-3]="i === 2"
+        [class.p-4]="i >= 3"
+      >
+        # {{ i + 1 }}
+      </h1>
+      <img
+        [src]="getIconURL(client)"
+        class="m-2"
+        alt="icon"
+        style="width: 40px"
+      />
+      <h2 class="m-0 p-1">{{ client.nickname }}</h2>
+      <span class="ms-auto p-1"> {{ client.points }} Points </span>
+    </li>
+  </ul>
+</div>
