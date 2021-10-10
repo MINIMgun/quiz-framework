@@ -2,7 +2,7 @@
   <ul class="list-group m-4 overflow-auto w-50">
     <li
       class="list-group-item d-flex align-items-center list-group-item-dark"
-      *ngFor="let client of game.gameClients; let i = index"
+      *ngFor="let client of result; let i = index"
       [class.gold]="i === 0"
       [class.silver]="i === 1"
       [class.bronze]="i === 2"
