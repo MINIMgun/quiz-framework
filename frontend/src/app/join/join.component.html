@@ -1,0 +1,61 @@
+<div class="container position-absolute top-50 start-50 translate-middle w-25">
+  <form (ngSubmit)="onSubmit()" #joinForm="ngForm" class="row g-3">
+    <div class="col-md-12">
+      <label for="name" class="form-label">Nickname</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        required
+        [(ngModel)]="joinUser.nickname"
+        name="name"
+        #name="ngModel"
+      />
+      <div
+        *ngIf="!(name.valid || name.pristine) || nicknameInUse"
+        class="alert alert-danger mt-2"
+      >
+        <ng-container *ngIf="!(name.valid || name.pristine)">
+          <p class="m-0">Name is required</p>
+        </ng-container>
+        <ng-container *ngIf="nicknameInUse">
+          <p class="m-0">This nickname is already used in this session.</p>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <label for="name" class="form-label">Session ID</label>
+      <input
+        type="text"
+        class="form-control"
+        id="sessionID"
+        required
+        name="sessionID"
+        [(ngModel)]="joinUser.sessionId"
+        #id="ngModel"
+      />
+      <div
+        *ngIf="!(id.valid || id.pristine) || noSessionFound"
+        class="alert alert-danger mt-2"
+      >
+        <ng-container *ngIf="!(id.valid || id.pristine)">
+          <p class="m-0">Session ID is required</p>
+        </ng-container>
+        <ng-container *ngIf="noSessionFound">
+          <p class="m-0">
+            Could not find a session with the id: {{ sessionId }}.
+          </p>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!joinForm.form.valid"
+      >
+        Join
+      </button>
+    </div>
+  </form>
+</div>

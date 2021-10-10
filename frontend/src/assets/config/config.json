@@ -1,0 +1,4 @@
+{
+  "apiUrl": "https://localhost:8443",
+  "apiBasePath": "/quiz/api/v1"
+}

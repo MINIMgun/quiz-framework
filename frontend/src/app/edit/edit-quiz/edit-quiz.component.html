@@ -1,0 +1,277 @@
+<div
+  class="continer-fluid position-relative overflow-auto"
+  style="height: 80vh"
+  *ngIf="quiz"
+>
+  <div class="container-fluid bg-minim py-3 px-4 rounded-top">
+    <div class="row">
+      <div class="col-md-3">
+        <input
+          class="form-control form-control-lg title-input h-100"
+          type="text"
+          [(ngModel)]="quiz.quizName"
+        />
+      </div>
+      <div class="col-md-2">
+        <label for="defaultTime" class="form-label m-0"
+          >Default Round Time</label
+        >
+        <input
+          [(ngModel)]="quiz.quizSettings.defaultTime"
+          type="number"
+          class="form-control align-self-end form-control-sm"
+          id="defaultTime"
+          name="defaultTime"
+        />
+      </div>
+      <div class="col-md-2">
+        <label for="pointsToAdd" class="form-label m-0"
+          >Right Answer Points</label
+        >
+        <input
+          [(ngModel)]="quiz.quizSettings.pointsToAdd"
+          type="number"
+          class="form-control align-self-end form-control-sm"
+          id="pointsToAdd"
+          name="pointsToAdd"
+        />
+      </div>
+      <div class="col-md-2">
+        <label for="removePointsForInvalidAnswers" class="form-label m-0"
+          >Remove Points When Wrong?</label
+        >
+        <select
+          [(ngModel)]="quiz.quizSettings.removePointsForInvalidAnswers"
+          class="form-select form-select-sm"
+          id="removePointsForInvalidAnswers"
+          name="removePointsForInvalidAnswers"
+        >
+          <option [ngValue]="false">No</option>
+          <option [ngValue]="true">Yes</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="pointsToRemove" class="form-label m-0"
+          >Remove Points Amount</label
+        >
+        <input
+          [(ngModel)]="quiz.quizSettings.pointsToRemove"
+          type="number"
+          class="form-control align-self-end form-control-sm"
+          id="pointsToRemove"
+          name="pointsToRemove"
+          [disabled]="!quiz.quizSettings.removePointsForInvalidAnswers"
+        />
+      </div>
+      <div class="col-md-1">
+        <button
+          class="btn btn-dark form-control h-100"
+          (click)="save()"
+          [disabled]="loading"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+            style="vertical-align: sub"
+          ></span>
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid py-2 px-4 bg-secondary">
+    <div class="row">
+      <div class="col-md-1 align-self-center">
+        <h5 class="m-0 h-100">Questions</h5>
+      </div>
+      <div class="col-md-1" *ngIf="quiz.questions.length > 0">
+        <select
+          class="form-select"
+          name="questions"
+          id="questions"
+          [(ngModel)]="questionId"
+        >
+          <option
+            *ngFor="let question of quiz.questions"
+            [ngValue]="getQuestionIndex(question)"
+          >
+            {{ question.questionIndex }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <button
+          class="btn btn-success form-control h-100"
+          (click)="createNewQuestion()"
+        >
+          <span class="material-icons" style="vertical-align: bottom">
+            add </span
+          >New
+        </button>
+      </div>
+      <div
+        class="col-md-1 offset-md-7"
+        *ngIf="quiz.questions.length > 0 && questionId != undefined"
+      >
+        <h6 class="m-0 h-100 text-end">Question Time</h6>
+      </div>
+      <div
+        class="col-md-1"
+        *ngIf="quiz.questions.length > 0 && questionId != undefined"
+      >
+        <input
+          type="number"
+          name="time"
+          id="time"
+          class="form-control"
+          [(ngModel)]="quiz.questions[questionId].time"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid p-4" *ngIf="questionId != undefined">
+    <form class="row g-3">
+      <div class="col-md-6">
+        <label for="taskType" class="form-label">Question Type</label>
+        <select
+          [(ngModel)]="quiz.questions[questionId].task.taskType"
+          class="form-select"
+          id="taskType"
+          name="taskType"
+        >
+          <option [ngValue]="'TEXT'">Text</option>
+          <option [ngValue]="'IMAGE'">Image</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="content" class="form-label">Content</label>
+        <input
+          [(ngModel)]="quiz.questions[questionId].task.content"
+          type="text"
+          class="form-control align-self-end"
+          id="content"
+          name="content"
+        />
+      </div>
+      <div class="col-md-4">
+        <label for="answerOptionType" class="form-label"
+          >Answer Option Type</label
+        >
+        <select
+          name="answerOptionType"
+          id="answerOptionType"
+          [(ngModel)]="quiz.questions[questionId].answerOption.answerOptionType"
+          class="form-select"
+        >
+          <option [ngValue]="'RANGE'">Schätzfrage</option>
+          <option [ngValue]="'OPTION'">Auswahl</option>
+          <option [ngValue]="'BUZZER'">Buzzer</option>
+        </select>
+      </div>
+      <div
+        class="col-md-4"
+        *ngIf="
+          quiz.questions[questionId].answerOption.answerOptionType === 'OPTION'
+        "
+      >
+        <label for="options">Antwortmöglichkeiten</label>
+        <ul class="list-group">
+          <li
+            class="
+              list-group-item
+              d-flex
+              justify-content-between
+              align-items-center
+            "
+            *ngFor="
+              let option of quiz.questions[questionId].answerOption
+                .optionAnswerOption.options
+            "
+          >
+            {{ option }}
+            <button
+              class="btn btn-danger text-white p-1"
+              (click)="deleteOption(option)"
+            >
+              <span class="material-icons" style="vertical-align: bottom">
+                delete
+              </span>
+            </button>
+          </li>
+          <li
+            class="
+              list-group-item
+              d-flex
+              justify-content-between
+              align-items-center
+            "
+          >
+            <input
+              class="form-control me-3"
+              type="text"
+              [(ngModel)]="newOption"
+              name="options"
+            />
+            <button
+              class="btn btn-success text-white p-1"
+              (click)="addOption()"
+            >
+              <span class="material-icons" style="vertical-align: bottom">
+                add
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="col-md-4"
+        *ngIf="
+          quiz.questions[questionId].answerOption.answerOptionType === 'OPTION'
+        "
+      >
+        <label for="correctValue" class="form-label">Richtige Antwort</label>
+        <select
+          name="correctValue"
+          id="correctValue"
+          class="form-select"
+          [(ngModel)]="
+            quiz.questions[questionId].answerOption.optionAnswerOption
+              .correctValue
+          "
+        >
+          <option
+            *ngFor="
+              let option of quiz.questions[questionId].answerOption
+                .optionAnswerOption.options
+            "
+            [value]="option"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <div
+        class="col-md-8"
+        *ngIf="
+          quiz.questions[questionId].answerOption.answerOptionType === 'RANGE'
+        "
+      >
+        <label for="correctValueRange" class="form-label"
+          >Richtiger Betrag</label
+        >
+        <input
+          type="number"
+          name="correctValueRange"
+          id="correctValueRange"
+          [(ngModel)]="
+            quiz.questions[questionId].answerOption.rangeAnswerOption
+              .correctValue
+          "
+          class="form-control"
+        />
+      </div>
+    </form>
+  </div>
+</div>
