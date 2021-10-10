@@ -1,0 +1,48 @@
+<ng-container
+  *ngIf="
+    game.sessionState.currentQuestionState !== 'ANSWERING' ||
+    game.client.gameMaster
+  "
+>
+  <h2
+    class="m-0 p-2 text-center"
+    *ngIf="
+      game.sessionState.currentQuestionState === 'RESULTS' ||
+      game.client.gameMaster
+    "
+  >
+    Correct Value:
+    {{
+      game.sessionState.currentQuestion.answerOption.rangeAnswerOption
+        .correctValue
+    }}
+  </h2>
+  <div class="row g-2 m-0 h-100 text-center">
+    <div class="col" *ngFor="let response of game.responses">
+      <h5 class="m-0 p-3">
+        {{ response.client.nickname }}
+      </h5>
+      <input
+        class="form-control form-control-lg"
+        type="number"
+        [value]="response.numberResponse"
+        disabled
+      />
+    </div>
+  </div>
+</ng-container>
+<div
+  class="d-flex align-items-center justify-content-center h-100"
+  *ngIf="
+    game.sessionState.currentQuestionState === 'ANSWERING' &&
+    !game.client.gameMaster
+  "
+>
+  <input
+    class="form-control form-control-lg w-50"
+    type="number"
+    name="response"
+    id="response"
+    [formControl]="guess"
+  />
+</div>

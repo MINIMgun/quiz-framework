@@ -10,4 +10,8 @@ export { TaskImpl } from './models/task-impl';
 export { EditPassword } from './models/edit-password';
 export { QuizCreateInfo } from './models/quiz-create-info';
 export { Info } from './models/info';
+export { Client } from './models/client';
+export { ClientResponse } from './models/client-response';
+export { SessionState } from './models/session-state';
+export { Timer } from './models/timer';
 export { QuizEntityInformation } from './models/quiz-entity-information';

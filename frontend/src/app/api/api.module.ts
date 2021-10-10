@@ -7,6 +7,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { LobbyControllerService } from './services/lobby-controller.service';
 import { EditControllerService } from './services/edit-controller.service';
 import { SettingsControllerService } from './services/settings-controller.service';
+import { PlayControllerService } from './services/play-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -19,6 +20,7 @@ import { SettingsControllerService } from './services/settings-controller.servic
     LobbyControllerService,
     EditControllerService,
     SettingsControllerService,
+    PlayControllerService,
     ApiConfiguration
   ],
 })

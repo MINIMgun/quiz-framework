@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from 'src/app/api/models/client';
 import { GameService } from '../game.service';
+import { SocketClientService } from '../socket-client.service';
+import KUTE from 'kute.js';
 
 @Component({
   selector: 'app-lobby',
@@ -9,10 +11,18 @@ import { GameService } from '../game.service';
 })
 export class LobbyComponent implements OnInit {
   urlBasePath: string;
-  constructor(public game: GameService) {}
+  constructor(public game: GameService, private socket: SocketClientService) {}
 
   ngOnInit(): void {
     this.urlBasePath = window.location.href.replace('play', 'join/');
+    const tween = KUTE.fromTo(
+      '#blob-1',
+      { path: '#blob-1' },
+      { path: '#blob-2' },
+      { repeat: 999, duration: 5000, yoyo: true }
+    );
+
+    tween.start();
   }
 
   getIconURL(client: Client): string {
@@ -20,16 +30,24 @@ export class LobbyComponent implements OnInit {
   }
 
   copyMessage(val: string) {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
+    if (!navigator.clipboard) {
+      const selBox = document.createElement('textarea');
+      selBox.style.position = 'fixed';
+      selBox.style.left = '0';
+      selBox.style.top = '0';
+      selBox.style.opacity = '0';
+      selBox.value = val;
+      document.body.appendChild(selBox);
+      selBox.focus();
+      selBox.select();
+      document.execCommand('copy');
+      document.body.removeChild(selBox);
+    } else {
+      navigator.clipboard.writeText(val);
+    }
+  }
+
+  startSession(): void {
+    this.socket.send(`/play/session/${this.game.sessionId}/next`, {});
   }
 }

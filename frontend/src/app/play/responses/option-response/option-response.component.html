@@ -1,0 +1,68 @@
+<div class="row row-cols-2 g-2 my-0 h-100">
+  <div
+    class="col position-relative"
+    *ngFor="
+      let option of game.sessionState.currentQuestion.answerOption
+        .optionAnswerOption.options
+    "
+  >
+    <button
+      class="btn h-100 w-100"
+      (click)="select(option)"
+      [class.btn-primary]="
+        option === selected &&
+        game.sessionState.currentQuestionState !== 'RESULTS'
+      "
+      [class.btn-secondary]="
+        (option !== selected &&
+          game.sessionState.currentQuestionState !== 'RESULTS' &&
+          !game.client.gameMaster) ||
+        (option !== selected &&
+          option !==
+            game.sessionState.currentQuestion.answerOption.optionAnswerOption
+              .correctValue)
+      "
+      [class.btn-success]="
+        (game.sessionState.currentQuestionState === 'RESULTS' &&
+          option ===
+            game.sessionState.currentQuestion.answerOption.optionAnswerOption
+              .correctValue) ||
+        (game.client.gameMaster &&
+          option ===
+            game.sessionState.currentQuestion.answerOption.optionAnswerOption
+              .correctValue)
+      "
+      [class.btn-danger]="
+        game.sessionState.currentQuestionState === 'RESULTS' &&
+        selected !==
+          game.sessionState.currentQuestion.answerOption.optionAnswerOption
+            .correctValue &&
+        option === selected
+      "
+      [disabled]="
+        (game.client && game.client.gameMaster) ||
+        game.sessionState.currentQuestionState !== 'ANSWERING'
+      "
+    >
+      {{ option }}
+    </button>
+    <div
+      class="position-absolute bottom-0"
+      *ngIf="
+        game.sessionState.currentQuestionState !== 'ANSWERING' ||
+        game.client.gameMaster
+      "
+    >
+      <ng-container *ngFor="let response of game.responses">
+        <img
+          *ngIf="response.textResponse === option"
+          [src]="getIconURL(response.client)"
+          style="width: 30px"
+          class="m-1"
+          data-bs-toggle="tooltip"
+          title="{{ response.client.nickname }}"
+        />
+      </ng-container>
+    </div>
+  </div>
+</div>

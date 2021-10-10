@@ -1,6 +1,8 @@
+/* tslint:disable */
+/* eslint-disable */
 export interface Client {
-  nickname: string;
-  points: number;
-  gameMaster: boolean;
-  connected: boolean;
+  connected?: boolean;
+  gameMaster?: boolean;
+  nickname?: string;
+  points?: number;
 }

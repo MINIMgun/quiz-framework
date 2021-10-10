@@ -113,11 +113,14 @@
       </div>
       <div
         class="col-md-1 offset-md-7"
-        *ngIf="quiz.questions.length > 0 && questionId"
+        *ngIf="quiz.questions.length > 0 && questionId != undefined"
       >
         <h6 class="m-0 h-100 text-end">Question Time</h6>
       </div>
-      <div class="col-md-1" *ngIf="quiz.questions.length > 0 && questionId">
+      <div
+        class="col-md-1"
+        *ngIf="quiz.questions.length > 0 && questionId != undefined"
+      >
         <input
           type="number"
           name="time"
