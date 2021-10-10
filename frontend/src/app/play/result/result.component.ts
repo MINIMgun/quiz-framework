@@ -8,10 +8,11 @@ import { GameService } from '../game.service';
   styleUrls: ['./result.component.css'],
 })
 export class ResultComponent implements OnInit {
+  result: Client[];
   constructor(public game: GameService) {}
 
   ngOnInit(): void {
-    this.game.gameClients.sort((a, b) => a.points - b.points);
+    this.result = this.game.gameClients.sort((a, b) => b.points - a.points);
   }
 
   getIconURL(client: Client): string {

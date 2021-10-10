@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'edit/:id', component: EditQuizComponent },
   { path: 'edit/:id/authorize', component: EditAuthorizationComponent },
   { path: 'play', component: GameManagementComponent },
-  //{ path: '**', redirectTo: '/start', pathMatch: 'full' }
+  { path: '**', redirectTo: '/start', pathMatch: 'full' },
 ];
 
 @NgModule({
