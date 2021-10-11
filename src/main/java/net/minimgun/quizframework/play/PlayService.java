@@ -147,6 +147,7 @@ public class PlayService {
                 double distance = Math.abs(response.getNumberResponse()
                         - currentState.getCurrentQuestion().getAnswerOption().getRangeAnswerOption().getCorrectValue());
                 if (distance < delta) {
+                    delta = distance;
                     winner = response;
                 }
             }
